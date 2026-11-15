@@ -21,8 +21,7 @@ body{background:var(--bg);color:var(--ink);font-family:'JetBrains Mono',monospac
 button,input,textarea,select{font-family:inherit}
 h1,h2,h3{font-family:'Archivo',sans-serif;letter-spacing:-.02em}
 #splash{position:fixed;inset:0;background:#000;z-index:100;width:100vw;height:100dvh;overflow:hidden}
-#splash video{width:100vw;height:100dvh;object-fit:contain;background:#000;pointer-events:none}
-#splashClick{position:absolute;inset:0;z-index:10}
+#splash video{width:100vw;height:100dvh;object-fit:cover;background:#000;pointer-events:none}
 #btnLewati{position:fixed;bottom:20px;right:16px;z-index:99999;background:var(--acc);border:2px solid #fff;color:#fff;padding:11px 18px;font-size:12px;font-weight:700;cursor:pointer}
 #loginPage{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:24px;max-width:420px;margin:0 auto;background:var(--bg)}
 .logoRow{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--ink);padding-bottom:16px}
@@ -107,8 +106,7 @@ img.preview{max-width:100%;border:2px solid var(--ink);margin-top:12px;display:b
 <div id="wm-delz">© <b>DELZ</b> • CYBER LAB</div>
 
 <div id="splash">
-  <video id="vidSplash" autoplay muted playsinline preload="auto"><source src="animasi2.mp4" type="video/mp4"></video>
-  <div id="splashClick" onclick="goLogin()"></div>
+  <video id="vidSplash" autoplay muted loop playsinline preload="auto"><source src="animasi2.mp4" type="video/mp4"></video>
   <button id="btnLewati" type="button" onclick="goLogin(event)">LEWATI</button>
 </div>
 
@@ -239,8 +237,6 @@ function getProjects(){ try{ return JSON.parse(localStorage.getItem(KEY)) || [];
 function setProjects(a){ localStorage.setItem(KEY, JSON.stringify(a)); updateSaved(); }
 function updateSaved(){ var a=getProjects(); var kb=new Blob([localStorage.getItem(KEY)||'[]']).size/1024; document.getElementById('lsInfo').innerText=a.length+' project kesimpen • '+kb.toFixed(1)+' KB di LocalStorage • Tutup app / reload tetep ada. Data cuma di HP lu, bukan di server.'; document.getElementById('savedBadge').innerText='● SAVED • '+a.length; }
 function goLogin(e){ if(e) e.stopPropagation(); if(alreadyGo) return; alreadyGo=true; document.getElementById('splash').classList.add('hidden'); document.getElementById('loginPage').classList.remove('hidden'); }
-document.getElementById('vidSplash').onended=function(){ goLogin(); };
-setTimeout(function(){ if(!alreadyGo) goLogin(); },8000);
 document.getElementById('btnLewati').addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); goLogin(); });
 document.getElementById('btnLewati').addEventListener('touchstart', function(e){ e.preventDefault(); goLogin(); }, {passive:false});
 function pressNum(n){ if(pin.length>=6) return; pin+=n; updateDots(); if(pin.length===6) checkPin(); }
@@ -390,4 +386,4 @@ function doCrack(){
 renderProjects();
 </script>
 </body>
-</html>
+  </html>
