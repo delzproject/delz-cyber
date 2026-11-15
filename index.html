@@ -21,7 +21,8 @@ body{background:var(--bg);color:var(--ink);font-family:'JetBrains Mono',monospac
 button,input,textarea,select{font-family:inherit}
 h1,h2,h3{font-family:'Archivo',sans-serif;letter-spacing:-.02em}
 #splash{position:fixed;inset:0;background:#000;z-index:100;width:100vw;height:100dvh;overflow:hidden}
-#splash video{width:100vw;height:100dvh;object-fit:cover;background:#000;pointer-events:none}
+#splash video{width:100vw;height:100dvh;object-fit:cover;background:#000;pointer-events:none;position:absolute;inset:0;z-index:1}
+#splashBlock{position:absolute;inset:0;z-index:5;background:transparent;touch-action:none}
 #btnLewati{position:fixed;bottom:20px;right:16px;z-index:99999;background:var(--acc);border:2px solid #fff;color:#fff;padding:11px 18px;font-size:12px;font-weight:700;cursor:pointer}
 #loginPage{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:24px;max-width:420px;margin:0 auto;background:var(--bg)}
 .logoRow{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--ink);padding-bottom:16px}
@@ -107,6 +108,7 @@ img.preview{max-width:100%;border:2px solid var(--ink);margin-top:12px;display:b
 
 <div id="splash">
   <video id="vidSplash" autoplay muted loop playsinline preload="auto"><source src="animasi2.mp4" type="video/mp4"></video>
+  <div id="splashBlock" onclick="return false" ontouchstart="return false" onmousedown="return false"></div>
   <button id="btnLewati" type="button" onclick="goLogin(event)">LEWATI</button>
 </div>
 
@@ -239,6 +241,8 @@ function updateSaved(){ var a=getProjects(); var kb=new Blob([localStorage.getIt
 function goLogin(e){ if(e) e.stopPropagation(); if(alreadyGo) return; alreadyGo=true; document.getElementById('splash').classList.add('hidden'); document.getElementById('loginPage').classList.remove('hidden'); }
 document.getElementById('btnLewati').addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); goLogin(); });
 document.getElementById('btnLewati').addEventListener('touchstart', function(e){ e.preventDefault(); goLogin(); }, {passive:false});
+document.getElementById('splash').addEventListener('click', function(e){ if(e.target.id!=='btnLewati'){ e.preventDefault(); e.stopPropagation(); return false; } }, true);
+document.getElementById('splash').addEventListener('touchstart', function(e){ if(e.target.id!=='btnLewati'){ e.preventDefault(); e.stopPropagation(); return false; } }, {passive:false, capture:true});
 function pressNum(n){ if(pin.length>=6) return; pin+=n; updateDots(); if(pin.length===6) checkPin(); }
 function clearPin(){ pin=pin.slice(0,-1); updateDots(); }
 function updateDots(){ document.querySelectorAll('.dot').forEach(function(d,i){ d.classList.toggle('fill', i<pin.length); }); }
