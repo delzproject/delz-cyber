@@ -1,6 +1,6 @@
 // CYBER LAB by DELZ - Service Worker
 // © 2026 DELZ. All Rights Reserved.
-const CACHE = 'cyberlab-delz-v2-icon3';
+const CACHE = 'cyberlab-delz-v4-lewati-only';
 const FILES = [
   './',
   './index.html',
